@@ -1,0 +1,15 @@
+name: ci
+
+on:
+  pull_request:
+    branches:
+      - master
+      - beta
+      - stable
+
+jobs:
+  pana:
+    runs-on: ubuntu-latest
+    steps:
+      - name: noop
+        run: echo 'noop'

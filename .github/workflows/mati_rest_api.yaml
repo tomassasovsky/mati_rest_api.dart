@@ -1,0 +1,29 @@
+name: mati_rest_api
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/mati_rest_api.yaml"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
+  push:
+    branches:
+      - master
+      - beta
+      - stable
+    paths:
+      - ".github/workflows/mati_rest_api.yaml"
+      - "lib/**"
+      - "test/**"
+      - "pubspec.yaml"
+
+jobs:
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
+    with:
+      min_coverage: 0
+  pana:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/pana.yml@v1
+    with:
+      min_score: 60
