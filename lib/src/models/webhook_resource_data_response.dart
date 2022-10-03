@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs
 
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:mati_rest_api/mati_rest_api.dart';
+import 'package:recase/recase.dart';
 
 class MatiWebhookResourceData extends MatiResponse with EquatableMixin {
   const MatiWebhookResourceData({
@@ -52,6 +53,18 @@ class MatiWebhookResourceData extends MatiResponse with EquatableMixin {
   final bool hasProblem;
   final Computed? computed;
   final String? id;
+
+  String? get capitalizedName {
+    final value = documents
+        ?.firstWhereOrNull((element) => element.fields?.fullName?.value != null)
+        ?.fields
+        ?.fullName
+        ?.value;
+
+    if (value == null || value.isEmpty) return null;
+
+    return ReCase(value).titleCase;
+  }
 
   bool get verified =>
       (steps?.every((step) => step.status == 200) ?? false) &&
@@ -306,40 +319,36 @@ class Fields extends Equatable {
     this.ocrNumber,
   });
 
-  factory Fields.fromMap(Map<dynamic, dynamic> json) => Fields(
-        fullName: json['fullName'] == null
-            ? null
-            : Address.fromMap(json['fullName'] as Map),
-        address: json['address'] == null
-            ? null
-            : Address.fromMap(json['address'] as Map),
-        documentNumber: json['documentNumber'] == null
-            ? null
-            : Address.fromMap(json['documentNumber'] as Map),
-        dateOfBirth: json['dateOfBirth'] == null
-            ? null
-            : DateOfBirth.fromMap(json['dateOfBirth'] as Map),
-        expirationDate: json['expirationDate'] == null
-            ? null
-            : DateOfBirth.fromMap(json['expirationDate'] as Map),
-        cde: json['cde'] == null ? null : Address.fromMap(json['cde'] as Map),
-        curp:
-            json['curp'] == null ? null : Address.fromMap(json['curp'] as Map),
-        ne: json['ne'] == null ? null : Address.fromMap(json['ne'] as Map),
-        ocrNumber: json['ocrNumber'] == null
-            ? null
-            : Address.fromMap(json['ocrNumber'] as Map),
-      );
+  factory Fields.fromMap(Map<dynamic, dynamic> json) {
+    DocumentField? parseField(String key) {
+      final value = json[key];
+      if (value == null || value is! Map) return null;
 
-  final Address? fullName;
-  final Address? address;
-  final Address? documentNumber;
-  final DateOfBirth? dateOfBirth;
-  final DateOfBirth? expirationDate;
-  final Address? cde;
-  final Address? curp;
-  final Address? ne;
-  final Address? ocrNumber;
+      return DocumentField.fromMap(value);
+    }
+
+    return Fields(
+      fullName: parseField('fullName'),
+      address: parseField('address'),
+      documentNumber: parseField('documentNumber'),
+      dateOfBirth: parseField('dateOfBirth'),
+      expirationDate: parseField('expirationDate'),
+      cde: parseField('cde'),
+      curp: parseField('curp'),
+      ne: parseField('ne'),
+      ocrNumber: parseField('ocrNumber'),
+    );
+  }
+
+  final DocumentField? fullName;
+  final DocumentField? address;
+  final DocumentField? documentNumber;
+  final DocumentField? dateOfBirth;
+  final DocumentField? expirationDate;
+  final DocumentField? cde;
+  final DocumentField? curp;
+  final DocumentField? ne;
+  final DocumentField? ocrNumber;
 
   @override
   List<Object?> get props {
@@ -357,33 +366,15 @@ class Fields extends Equatable {
   }
 }
 
-class Address extends Equatable {
-  const Address({
-    this.value,
-    this.label,
-  });
-
-  factory Address.fromMap(Map<dynamic, dynamic> json) => Address(
-        value: json['value'] as String?,
-        label: json['label'] as String?,
-      );
-
-  final String? value;
-  final String? label;
-
-  @override
-  List<Object?> get props => [value, label];
-}
-
-class DateOfBirth extends Equatable {
-  const DateOfBirth({
+class DocumentField extends Equatable {
+  const DocumentField({
     this.value,
     this.label,
     this.format,
   });
 
-  factory DateOfBirth.fromMap(Map<dynamic, dynamic> json) => DateOfBirth(
-        value: json['value'] as String,
+  factory DocumentField.fromMap(Map<dynamic, dynamic> json) => DocumentField(
+        value: json['value'] as String?,
         label: json['label'] as String?,
         format: json['format'] as String?,
       );
