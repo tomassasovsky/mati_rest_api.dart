@@ -317,6 +317,8 @@ class Fields extends Equatable {
     this.curp,
     this.ne,
     this.ocrNumber,
+    this.surname,
+    this.lastName,
   });
 
   factory Fields.fromMap(Map<dynamic, dynamic> json) {
@@ -337,6 +339,8 @@ class Fields extends Equatable {
       curp: parseField('curp'),
       ne: parseField('ne'),
       ocrNumber: parseField('ocrNumber'),
+      surname: parseField('surname'),
+      lastName: parseField('lastName'),
     );
   }
 
@@ -349,6 +353,8 @@ class Fields extends Equatable {
   final DocumentField? curp;
   final DocumentField? ne;
   final DocumentField? ocrNumber;
+  final DocumentField? surname;
+  final DocumentField? lastName;
 
   @override
   List<Object?> get props {
@@ -362,6 +368,8 @@ class Fields extends Equatable {
       curp,
       ne,
       ocrNumber,
+      surname,
+      lastName,
     ];
   }
 }
