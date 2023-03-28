@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:http_interceptor/http_interceptor.dart' as http;
+import 'package:http/http.dart' as http;
+import 'package:http_interceptor/http_interceptor.dart' as http_interceptor;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mati_rest_api/mati_rest_api.dart';
 import 'package:mati_rest_api/src/interceptors/token_interceptor.dart';
@@ -17,7 +18,7 @@ class MatiRestApi implements MatiRestApiBase {
     required this.clientSecret,
     http.Client? httpClient,
   }) {
-    _httpClient = http.InterceptedClient.build(
+    _httpClient = http_interceptor.InterceptedClient.build(
       interceptors: [
         TokenInterceptor(
           clientId: clientId,
