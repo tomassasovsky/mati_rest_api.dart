@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+
+* Added missing fields in the webhook resource data response
+
 ## 1.0.1+1-beta
 
 * Added missing fields in the webhook resource data response
