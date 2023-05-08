@@ -319,6 +319,7 @@ class Fields extends Equatable {
     this.ocrNumber,
     this.surname,
     this.firstName,
+    this.sex,
   });
 
   factory Fields.fromMap(Map<dynamic, dynamic> json) {
@@ -341,6 +342,7 @@ class Fields extends Equatable {
       ocrNumber: parseField('ocrNumber'),
       surname: parseField('surname'),
       firstName: parseField('firstName'),
+      sex: parseField('sex'),
     );
   }
 
@@ -355,6 +357,7 @@ class Fields extends Equatable {
   final DocumentField? ocrNumber;
   final DocumentField? surname;
   final DocumentField? firstName;
+  final DocumentField? sex;
 
   @override
   List<Object?> get props {
@@ -370,6 +373,7 @@ class Fields extends Equatable {
       ocrNumber,
       surname,
       firstName,
+      sex,
     ];
   }
 }
