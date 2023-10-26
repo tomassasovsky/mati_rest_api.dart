@@ -491,7 +491,7 @@ class MatiWebhookResourceDataStep extends Equatable {
 
 class StepData extends Equatable {
   const StepData({
-    this.selfiePhotoUrl,
+    this.selfieUrl,
     this.country,
     this.countryCode,
     this.region,
@@ -504,7 +504,7 @@ class StepData extends Equatable {
   });
 
   factory StepData.fromMap(Map<dynamic, dynamic> json) => StepData(
-        selfiePhotoUrl: json['selfiePhotoUrl'] as String?,
+        selfieUrl: json['selfieUrl'] as String?,
         country: json['country'] as String?,
         countryCode: json['countryCode'] as String?,
         region: json['region'] as String?,
@@ -516,7 +516,7 @@ class StepData extends Equatable {
         safe: json['safe'] as bool?,
       );
 
-  final String? selfiePhotoUrl;
+  final String? selfieUrl;
   final String? country;
   final String? countryCode;
   final String? region;
@@ -530,7 +530,7 @@ class StepData extends Equatable {
   @override
   List<Object?> get props {
     return [
-      selfiePhotoUrl,
+      selfieUrl,
       country,
       countryCode,
       region,
