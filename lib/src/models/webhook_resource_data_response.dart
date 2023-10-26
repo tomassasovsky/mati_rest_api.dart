@@ -29,13 +29,15 @@ class MatiWebhookResourceData extends MatiResponse with EquatableMixin {
         steps: json['steps'] == null
             ? null
             : List<MatiWebhookResourceDataStep>.from(
-                ((json['steps'] as List).cast<Map<dynamic, dynamic>>())
+                (json['steps'] as List)
+                    .cast<Map<dynamic, dynamic>>()
                     .map(MatiWebhookResourceDataStep.fromMap),
               ),
         documents: json['documents'] == null
             ? null
             : List<Document>.from(
-                ((json['documents'] as List).cast<Map<dynamic, dynamic>>())
+                (json['documents'] as List)
+                    .cast<Map<dynamic, dynamic>>()
                     .map(Document.fromMap),
               ),
         hasProblem: json['hasProblem'] as bool? ?? true,
@@ -279,7 +281,8 @@ class Document extends Equatable {
         steps: json['steps'] == null
             ? null
             : List<DocumentStep>.from(
-                ((json['steps'] as List).cast<Map<dynamic, dynamic>>())
+                (json['steps'] as List)
+                    .cast<Map<dynamic, dynamic>>()
                     .map(DocumentStep.fromMap),
               ),
         fields: json['fields'] == null

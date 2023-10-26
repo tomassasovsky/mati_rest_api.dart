@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+* feat!: rename selfiePhotoUrl to selfieUrl
+
 ## 1.1.0
 
 * Added missing fields in the webhook resource data response
